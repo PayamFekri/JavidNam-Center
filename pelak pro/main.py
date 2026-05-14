@@ -274,6 +274,7 @@ class MyAppLayout(BoxLayout):
 
 class MyApp(App):
     def build(self):
+        self.title = "Mozdur Manager"
         create_or_update_table()
         return MyAppLayout()
 
