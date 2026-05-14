@@ -38,7 +38,8 @@ class MyAppLayout(BoxLayout):
         super().__init__(orientation='vertical', spacing=10, padding=15, **kwargs)
 
         Window.size = (900, 750)
-
+        Window.clearcolor = (0, 0, 0, 1)
+        
         self.fields = ["first", "alphabet", "second", "color", "explain"]
         self.inputs = {}
 
@@ -69,9 +70,11 @@ class MyAppLayout(BoxLayout):
             text_input = TextInput(
                 multiline=False,
                 size_hint=(0.7, 1),
-                font_size=20
+                font_size=20,
+                background_color=(1, 1, 1, 1),
+                foreground_color=(0, 0, 0, 1),
+                cursor_color=(1, 0, 0, 1)
             )
-
             self.inputs[field_name] = text_input
 
             row.add_widget(label)
@@ -82,8 +85,11 @@ class MyAppLayout(BoxLayout):
             text="Enter Information",
             size_hint=(1, None),
             height=50,
-            font_size=22
+            font_size=22,
+            background_color=(0.2, 0.6, 0.9, 1),
+            color=(1, 1, 1, 1)
         )
+
         save_btn.bind(on_press=self.save_data)
         input_section.add_widget(save_btn)
 
@@ -161,7 +167,7 @@ class MyAppLayout(BoxLayout):
         )
 
         with header.canvas.before:
-            Color(0.85, 0.85, 0.85, 1)
+            Color(0.4, 0.6, 0.9, 1)
             self.header_rect = Rectangle(pos=header.pos, size=header.size)
 
         header.bind(pos=self.update_header_rect, size=self.update_header_rect)
@@ -176,7 +182,15 @@ class MyAppLayout(BoxLayout):
         ]
 
         for title, width in headers:
-            header.add_widget(Label(text=title, size_hint=(width, 1), bold=True, font_size=16))
+            header.add_widget(
+                Label(
+                    text=title,
+                    size_hint=(width, 1),
+                    bold=True,
+                    font_size=16,
+                    color=(0, 0, 0, 1)
+                )
+            )
 
         display_section.add_widget(header)
 
@@ -277,7 +291,6 @@ class MyApp(App):
         self.title = "Sar Manager"
         create_or_update_table()
         return MyAppLayout()
-
-
+    
 if __name__ == "__main__":
     MyApp().run()
