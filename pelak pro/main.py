@@ -11,6 +11,25 @@ from kivy.graphics import Color, Rectangle
 
 from db_utils import create_or_update_table, insert_user, fetch_users, delete_user_by_id
 
+import sys
+import os
+
+# تلاش برای فعال کردن UTF-8 در خروجی استاندارد
+os.environ["PYTHONIOENCODING"] = "utf-8"
+
+# اگر streamها reconfigure دارند، از آن استفاده کن
+try:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
+    if hasattr(sys.stderr, "reconfigure"):
+        sys.stderr.reconfigure(encoding="utf-8")
+except Exception:
+    pass
+
+Farsi_font = "Arial"
+
+
+
 
 class UserRow(BoxLayout):
     def __init__(self, user_info, **kwargs):
