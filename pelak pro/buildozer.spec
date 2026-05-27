@@ -1,17 +1,55 @@
 [app]
-title = Sar Manager
-package.name = sarmanager
-package.domain = org.example # این را می‌توانید با دامنه دلخواه خودتان جایگزین کنید
+
+# نام برنامه که روی گوشی نشون داده میشه
+title = Sarkubgar
+
+# نام بسته (فقط حروف کوچک، عدد، زیرخط)
+package.name = SarManager
+
+# دامنه معکوس (مهم برای منحصر به فرد بودن)
+package.domain = com.javidnam.pelak
+
+# نسخه برنامه
+version = 1.0.0
+
+# نسخه کد برای اندروید (عدد صحیح)
+android.numeric_version = 1
+
+# نیازمندی‌ها - حتما hashlib نیاز نیست چون داخلیه
+requirements = python3==3.9.7,kivy==2.2.1,sqlite3
+
+# فایل اصلی برنامه
 source.dir = .
-source.include_exts = py,kv,sqlite3,db  # فرمت‌های فایل پروژه شما
+source.include_extras = True
 
-version = 0.1
-requirements = python3,kivy,sqlite3 # sqlite3 معمولا با پایتون هست اما برای اطمینان اضافه شده
+# فایل‌هایی که باید همراه برنامه برن
+source.include_patterns = icon.png,*.py,*.db
 
-# برای دسترسی به حافظه داخلی (برای ذخیره دیتابیس)
+# آیکون برنامه (همون فایلی که داری)
+icon.filename = icon.png
+
+# اجازه دسترسی به حافظه برای دیتابیس
 android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE
 
-# اگر پروژه شما نیاز به GUI دارد که در buildozer.spec مشخص نشده
-# android.force_permissions = INTERNET # اگر در آینده نیاز شد
+# پذیرش مجوز SDK
+android.accept_sdk_license = True
 
-# orientation = portrait # یا landscape یا all
+# نسخه SDK و NDK
+android.ndk = 25b
+android.sdk = 30
+android.ndk_api = 30
+
+# معماری‌های پشتیبانی شده
+android.archs = armeabi-v7a, arm64-v8a
+
+# حالت دیباگ
+android.release = False
+android.debug = True
+
+# لاگ
+log_level = 2
+
+[buildozer]
+
+log_level = 2
+warn_on_root = 1
