@@ -17,7 +17,6 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    cart = Cart(request)
     return render(request, 'shop/product/detail.html', {'product': product})
 
 def cart_detail(request):
@@ -28,10 +27,10 @@ def cart_add(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.add(product=product, quantity=1)
-    return redirect('cart_detail')
+    return redirect('shop:cart_detail')
 
 def cart_remove(request, product_id):
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
-    return redirect('cart_detail')
+    return redirect('shop:cart_detail')
