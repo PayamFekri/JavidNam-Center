@@ -1,0 +1,8 @@
+{% extends "shop/base.html" %}
+{% block content %}
+<h1>{{ product.name }}</h1>
+<p>قیمت: {{ product.price }} تومان</p>
+<p>{{ product.description }}</p>
+<a href="{% url 'shop:cart_add' product.id %}" class="btn btn-success">افزودن به سبد خرید</a>
+<a href="{% url 'shop:product_list' %}" class="btn btn-secondary">بازگشت</a>
+{% endblock %}

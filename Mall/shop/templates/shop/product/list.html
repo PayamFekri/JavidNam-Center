@@ -1,0 +1,19 @@
+{% extends "shop/base.html" %}
+{% block title %}محصولات{% endblock %}
+{% block content %}
+<h2>محصولات</h2>
+<div class="row">
+    {% for product in products %}
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.price }} تومان</p>
+                    <a href="{{ product.get_absolute_url }}" class="btn btn-primary">مشاهده</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
