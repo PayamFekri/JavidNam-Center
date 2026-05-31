@@ -1,0 +1,50 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}محصولات - JavidNam Center{% endblock  %}
+{% block content %}
+
+<section class = 'py-5'>
+    <div class = 'container'>
+        <div class ="d-flex flex-warp justify-content-between align-items-center mt-5 mb-3">
+            <h4 class = 'text-uppercase'>محصولات ما</h4>
+        </div>
+
+        <div class = "row">
+            {% for product in products %}
+                <div class="col-md-4 col-sm-6 mb-4">
+                    <div class="product-item image-zoom-effect link-effect">
+                    <div class="image-holder position-relative">
+                        <a href="{{ product.get_absolute_url }}">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+                            
+                            {% else %}
+                            <img src="{% static 'images/product-item-1.jpg' %}" alt="product" class="product-image img-fluid">
+                            {% endif %}
+                        </a>
+
+                        <a href="{% url 'shop:cart_add' product.id %}" class="btn-icon btn-wishlist">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#cart"></use>
+                            </svg>
+                            </a>
+                            <div class="product-content">
+                            <h5 class="text-uppercase fs-5 mt-3">
+                                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                            </h5>
+                            <a href="{% url 'shop:cart_add' product.id %}" class="text-decoration-none" data-after="Add to cart">
+                                <span>{{ product.price }} تومان</span>
+                            </a>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center py-5">
+                        <p>هیچ محصولی یافت نشد.</p>
+                    </div>
+            {% endfor %}
+                </div>
+            </div>
+            </section>
+{% endblock %}

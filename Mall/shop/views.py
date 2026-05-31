@@ -9,19 +9,33 @@ def product_list(request, category_slug=None):
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
-    return render(request, 'shop/product/list.html', {
+    
+    cart = Cart(request)
+    
+    return render(request, 'shop/product_list.html', {
         'category': category,
         'categories': categories,
-        'products': products
+        'products': products,
+        'cart': cart,
     })
 
 def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
-    return render(request, 'shop/product/detail.html', {'product': product})
+    cart = Cart(request)
+    categories = Category.objects.all()
+    return render(request, 'shop/product_detail.html', {
+        'product': product,
+        'cart': cart,
+        'categories': categories,
+    })
 
 def cart_detail(request):
     cart = Cart(request)
-    return render(request, 'shop/cart/detail.html', {'cart': cart})
+    categories = Category.objects.all()
+    return render(request, 'shop/cart_detail.html', {
+        'cart': cart,
+        'categories': categories,
+    })
 
 def cart_add(request, product_id):
     cart = Cart(request)

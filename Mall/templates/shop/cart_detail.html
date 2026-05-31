@@ -1,0 +1,55 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}سبد خرید - JavidNam Center{% endblock %}
+
+{% block content %}
+<section class="py-5">
+  <div class="container">
+    <h4 class="text-uppercase mb-4">سبد خرید</h4>
+    
+    {% if cart %}
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>محصول</th>
+            <th>قیمت</th>
+            <th>تعداد</th>
+            <th>مجموع</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in cart %}
+          <tr>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.price }} تومان</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.total_price }} تومان</td>
+            <td>
+              <a href="{% url 'shop:cart_remove' item.product.id %}" class="text-danger">
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                  <use xlink:href="#trash"></use>
+                </svg>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+          <tr class="fw-bold">
+            <td colspan="3">جمع کل</td>
+            <td colspan="2">{{ cart.get_total_price }} تومان</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="{% url 'shop:product_list' %}" class="btn btn-outline-dark">ادامه خرید</a>
+    {% else %}
+    <div class="text-center py-5">
+      <p>سبد خرید شما خالی است.</p>
+      <a href="{% url 'shop:product_list' %}" class="btn btn-dark">بازگشت به فروشگاه</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}
