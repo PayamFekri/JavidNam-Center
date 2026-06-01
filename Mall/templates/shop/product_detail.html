@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-md-6">
         {% if product.image %}
-        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+        <img src="{{ product.image.url }}" class="img-fluid product-detail-img" alt="{{ product.name }}" style="width: 100%; height: 400px; object-fit: contain;">
         {% endif %}
       </div>
       <div class="col-md-6">
