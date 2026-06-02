@@ -1,0 +1,16 @@
+<div class="search-popup">
+    <div class="search-popup-container">
+        <form role="search" method="get" class="form-group" action="">
+            <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="جستجو..." value="" name="s" />
+            <button type="submit" class="search-submit border-0 position-absolute bg-white" style="top: 15px;right: 15px;">
+                <svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg>
+            </button>
+        </form>
+        <h5 class="cat-list-title">دسته‌بندی‌ها</h5>
+        <ul class="cat-list">
+            {% for cat in categories %}
+            <li class="cat-list-item"><a href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

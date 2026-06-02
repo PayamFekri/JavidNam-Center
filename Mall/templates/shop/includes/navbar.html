@@ -1,0 +1,83 @@
+<nav class="navbar navbar-expand-lg bg-light text-uppercase fs-6 p-3 border-bottom">
+    <div class="container-fluid">
+        <div class="row justify-content-between align-items-center w-100">
+            <!-- لوگو و نام فروشگاه - لینک به صفحه اصلی -->
+            <div class="col-auto">
+                <a class="navbar-brand text-dark" href="{% url 'shop:index' %}">
+                    <h3 class="m-0">JavidNam Center</h3>
+                </a>
+            </div>
+            
+            <!-- منوی اصلی -->
+            <div class="col-auto">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- خانه - لینک به صفحه اصلی -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop:index' %}">خانه</a>
+                        </li>
+                        <!-- محصولات - لینک به لیست محصولات -->
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'shop:product_list' %}">محصولات</a>
+                        </li>
+                        <!-- دسته‌بندی‌ها - منوی کشویی -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">دسته‌بندی‌ها</a>
+                            <ul class="dropdown-menu">
+                                {% for cat in categories %}
+                                <li><a class="dropdown-item" href="{{ cat.get_absolute_url }}">{{ cat.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- بخش راست (سبد خرید و کاربر) -->
+            <div class="col-auto">
+                <ul class="list-unstyled d-flex m-0 gap-3 align-items-center">
+                    <!-- سبد خرید -->
+                    <li>
+                        <a href="{% url 'shop:cart_detail' %}" class="text-dark position-relative">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#cart"></use>
+                            </svg>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+                                {{ cart|length }}
+                            </span>
+                        </a>
+                    </li>
+                    
+                    <!-- وضعیت کاربر -->
+                    {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a class="dropdown-toggle text-dark text-decoration-none" href="#" data-bs-toggle="dropdown">
+                            <i class="fas fa-user"></i> {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">پروفایل</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">خروج</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'accounts:login' %}" class="btn btn-outline-dark btn-sm">ورود</a></li>
+                    <li><a href="{% url 'accounts:register' %}" class="btn btn-dark btn-sm">ثبت‌نام</a></li>
+                    {% endif %}
+                    
+                    <!-- جستجو -->
+                    <li class="search-box">
+                        <a href="#search" class="search-button text-dark">
+                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#search"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -23,10 +23,13 @@ def product_detail(request, id, slug):
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart = Cart(request)
     categories = Category.objects.all()
+    related_products = Product.objects.filter(category=product.category, available=True).exclude(id=product.id)[:4]
+    
     return render(request, 'shop/product_detail.html', {
         'product': product,
         'cart': cart,
         'categories': categories,
+        'related_products': related_products,
     })
 
 def cart_detail(request):
@@ -48,3 +51,18 @@ def cart_remove(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
     return redirect('shop:cart_detail')
+
+def index(request):
+    categories = Category.objects.all()
+    new_products = Product.objects.filter(available=True).order_by('-created')[:8]
+    best_sellers = Product.objects.filter(available=True).order_by('-updated')[:8]
+    related_products = Product.objects.filter(available=True).order_by('?')[:5]
+    cart = Cart(request)
+    
+    return render(request, 'shop/index.html', {
+        'categories': categories,
+        'new_products': new_products,
+        'best_sellers': best_sellers,
+        'related_products': related_products,
+        'cart': cart,
+    })

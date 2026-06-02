@@ -1,28 +1,78 @@
-
 {% extends "shop/base.html" %}
 {% load static %}
 
 {% block title %}{{ product.name }} - JavidNam Center{% endblock %}
 
 {% block content %}
-<section class="py-5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        {% if product.image %}
-        <img src="{{ product.image.url }}" class="img-fluid product-detail-img" alt="{{ product.name }}" style="width: 100%; height: 400px; object-fit: contain;">
-        {% endif %}
-      </div>
-      <div class="col-md-6">
-        <h1>{{ product.name }}</h1>
-        <p class="fs-3 text-primary">{{ product.price }} تومان</p>
-        <p>{{ product.description|linebreaks }}</p>
-        <div class="d-flex gap-3 mt-4">
-          <a href="{% url 'shop:cart_add' product.id %}" class="btn btn-dark text-uppercase">افزودن به سبد خرید</a>
-          <a href="{% url 'shop:product_list' %}" class="btn btn-outline-secondary text-uppercase">بازگشت</a>
+<section class="single-product py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="image-holder">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+                    {% else %}
+                    <img src="{% static 'images/product-item-1.jpg' %}" alt="product" class="product-image img-fluid">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product-info">
+                    <h1 class="text-uppercase">{{ product.name }}</h1>
+                    <div class="product-price my-4">
+                        <strong class="fs-2 text-primary">{{ product.price }} تومان</strong>
+                    </div>
+                    <p>{{ product.description|linebreaks }}</p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a href="{% url 'shop:cart_add' product.id %}" class="btn btn-dark text-uppercase">
+                            <svg width="20" height="20" class="me-2"><use xlink:href="#cart"></use></svg>
+                            افزودن به سبد خرید
+                        </a>
+                        <a href="{% url 'shop:product_list' %}" class="btn btn-outline-secondary text-uppercase">
+                            بازگشت
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
+
+<!-- محصولات مرتبط -->
+{% if related_products %}
+<section class="related-products product-carousel py-5">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+            <h4 class="text-uppercase">محصولات مرتبط</h4>
+            <a href="{% url 'shop:product_list' %}" class="btn-link">مشاهده همه</a>
+        </div>
+        <div class="row">
+            {% for product in related_products %}
+            <div class="col-md-3 col-sm-6 mb-4">
+                <div class="product-item image-zoom-effect link-effect">
+                    <div class="image-holder position-relative">
+                        <a href="{{ product.get_absolute_url }}">
+                            {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+                            {% else %}
+                            <img src="{% static 'images/product-item-1.jpg' %}" alt="product" class="product-image img-fluid">
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'shop:cart_add' product.id %}" class="btn-icon btn-wishlist">
+                            <svg width="24" height="24"><use xlink:href="#cart"></use></svg>
+                        </a>
+                        <div class="product-content">
+                            <h5 class="text-uppercase fs-6 mt-3">
+                                <a href="{{ product.get_absolute_url }}">{{ product.name|truncatechars:20 }}</a>
+                            </h5>
+                            <span>{{ product.price }} تومان</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
 {% endblock %}

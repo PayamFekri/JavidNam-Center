@@ -1,0 +1,50 @@
+{% load static %}
+<section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
+    <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
+            <h4 class="text-uppercase">جدیدترین محصولات</h4>
+            <a href="{% url 'shop:product_list' %}" class="btn-link">مشاهده همه</a>
+        </div>
+        <div class="swiper product-swiper open-up" data-aos="zoom-out">
+            <div class="swiper-wrapper d-flex">
+                {% for product in new_products %}
+                <div class="swiper-slide">
+                    <div class="product-item image-zoom-effect link-effect">
+                        <div class="image-holder position-relative">
+                            <a href="{{ product.get_absolute_url }}">
+                                {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image img-fluid">
+                                {% else %}
+                                <img src="{% static 'images/product-item-1.jpg' %}" alt="product" class="product-image img-fluid">
+                                {% endif %}
+                            </a>
+                            <a href="{% url 'shop:cart_add' product.id %}" class="btn-icon btn-wishlist">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                    <use xlink:href="#cart"></use>
+                                </svg>
+                            </a>
+                            <div class="product-content">
+                                <h5 class="element-title text-uppercase fs-5 mt-3">
+                                    <a href="{{ product.get_absolute_url }}">{{ product.name|truncatechars:25 }}</a>
+                                </h5>
+                                <a href="{% url 'shop:cart_add' product.id %}" class="text-decoration-none" data-after="Add to cart">
+                                    <span>{{ product.price }} تومان</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="swiper-slide">
+                    <div class="product-item">
+                        <p>محصولی وجود ندارد</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#arrow-left"></use></svg></div>
+        <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#arrow-right"></use></svg></div>
+    </div>
+</section>

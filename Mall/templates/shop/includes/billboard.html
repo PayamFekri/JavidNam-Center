@@ -1,0 +1,56 @@
+{% load static %}
+<section id="billboard" class="bg-light py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <h1 class="section-title text-center mt-4" data-aos="fade-up">جدیدترین محصولات</h1>
+            <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                <p>به فروشگاه JavidNam Center خوش آمدید. بهترین و باکیفیت‌ترین محصولات را با بهترین قیمت تهیه کنید.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="swiper-wrapper d-flex border-animation-left">
+                    {% for product in new_products|slice:":6" %}
+                    <div class="swiper-slide">
+                        <div class="banner-item image-zoom-effect">
+                            <div class="image-holder">
+                                <a href="{{ product.get_absolute_url }}">
+                                    {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-fluid">
+                                    {% else %}
+                                    <img src="{% static 'images/banner-image-1.jpg' %}" alt="product" class="img-fluid">
+                                    {% endif %}
+                                </a>
+                            </div>
+                            <div class="banner-content py-4">
+                                <h5 class="element-title text-uppercase">
+                                    <a href="{{ product.get_absolute_url }}" class="item-anchor">{{ product.name }}</a>
+                                </h5>
+                                <p>{{ product.description|truncatewords:15|default:"محصولی با کیفیت عالی" }}</p>
+                                <div class="btn-left">
+                                    <a href="{{ product.get_absolute_url }}" class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">مشاهده محصول</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="swiper-slide">
+                        <div class="banner-item image-zoom-effect">
+                            <div class="image-holder">
+                                <img src="{% static 'images/banner-image-1.jpg' %}" alt="product" class="img-fluid">
+                            </div>
+                            <div class="banner-content py-4">
+                                <h5 class="element-title text-uppercase">محصول جدید</h5>
+                                <p>به زودی...</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+            <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#arrow-left"></use></svg></div>
+            <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#arrow-right"></use></svg></div>
+        </div>
+    </div>
+</section>

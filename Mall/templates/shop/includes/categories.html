@@ -1,0 +1,66 @@
+{% load static %}
+<section class="categories overflow-hidden">
+    <div class="container">
+        <div class="open-up" data-aos="zoom-out">
+            <div class="row">
+                {% for category in categories|slice:":3" %}
+                <div class="col-md-4">
+                    <div class="cat-item image-zoom-effect">
+                        <div class="image-holder">
+                            <a href="{{ category.get_absolute_url }}">
+                                {% if category.image %}
+                                <img src="{{ category.image.url }}" alt="{{ category.name }}" class="product-image img-fluid">
+                                {% else %}
+                                <img src="{% static 'images/cat-item'|add:forloop.counter|add:'.jpg' %}" alt="{{ category.name }}" class="product-image img-fluid">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="category-content">
+                            <div class="product-button">
+                                <a href="{{ category.get_absolute_url }}" class="btn btn-common text-uppercase">خرید {{ category.name }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-md-4">
+                    <div class="cat-item image-zoom-effect">
+                        <div class="image-holder">
+                            <img src="{% static 'images/cat-item1.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                        </div>
+                        <div class="category-content">
+                            <div class="product-button">
+                                <a href="#" class="btn btn-common text-uppercase">خرید</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cat-item image-zoom-effect">
+                        <div class="image-holder">
+                            <img src="{% static 'images/cat-item2.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                        </div>
+                        <div class="category-content">
+                            <div class="product-button">
+                                <a href="#" class="btn btn-common text-uppercase">خرید</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="cat-item image-zoom-effect">
+                        <div class="image-holder">
+                            <img src="{% static 'images/cat-item3.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                        </div>
+                        <div class="category-content">
+                            <div class="product-button">
+                                <a href="#" class="btn btn-common text-uppercase">خرید</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>

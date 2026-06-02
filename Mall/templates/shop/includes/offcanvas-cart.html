@@ -1,0 +1,31 @@
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart">
+    <div class="offcanvas-header justify-content-center">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="order-md-last">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-primary">سبد خرید شما</span>
+                <span class="badge bg-primary rounded-pill">{{ cart|length }}</span>
+            </h4>
+            <ul class="list-group mb-3">
+                {% for item in cart %}
+                <li class="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                        <h6 class="my-0">{{ item.product.name }}</h6>
+                        <small class="text-body-secondary">تعداد: {{ item.quantity }}</small>
+                    </div>
+                    <span class="text-body-secondary">{{ item.total_price }} تومان</span>
+                </li>
+                {% empty %}
+                <li class="list-group-item text-center">سبد خرید خالی است</li>
+                {% endfor %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>جمع کل</span>
+                    <strong>{{ cart.get_total_price }} تومان</strong>
+                </li>
+            </ul>
+            <a href="{% url 'shop:cart_detail' %}" class="w-100 btn btn-primary btn-lg">مشاهده سبد خرید</a>
+        </div>
+    </div>
+</div>
