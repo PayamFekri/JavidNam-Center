@@ -28,19 +28,97 @@
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
 
     <style>
-        .product-item .image-holder img,
-        .product-item .product-image,
-        .product-item img {
-            width: 100% !important;
-            height: 280px !important;
-            object-fit: cover !important;
-            object-position: center !important;
+        /* ===== فونت‌های مدرن و نازک ===== */
+        @import url('https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css');
+        
+        *{
+            font-family: 'Vazir', 'Inter', sans-serif !important;
         }
-        @media (max-width: 768px) {
-            .product-item .image-holder img,
-            .product-item .product-image {
-                height: 200px !important;
-            }
+        
+        body {
+            
+            font-weight: 300 !important;  /* نازک و ملایم */
+            letter-spacing: -0.02em !important;
+            line-height: 1.6 !important;
+            color: #5d5d5d !important;
+            background: linear-gradient(135deg, #585555 0%, #d6ffe5 100%) !important;
+            min-height: 100vh !important;
+            position: relative !important;
+        }
+
+        body::before {
+            content: '' !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            background-image: radial-gradient(#d4d4d4 0.8px, transparent 0.8px) !important;
+            background-size: 25px 25px !important;
+            pointer-events: none !important;
+            z-index: 0 !important;
+        }
+        main, .navbar, footer {
+            position: relative !important;
+            z-index: 1 !important;
+        }
+        
+        /* عناوین با ضخامت متوسط */
+        h1, h2, h3, h4, h5, h6,
+        .h1, .h2, .h3, .h4, .h5, .h6,
+        .element-title, .section-title, .widget-title,
+        .product-title, .card-title {
+            font-weight: 400 !important;
+            letter-spacing: -0.03em !important;
+        }
+        
+        /* عناوین بزرگ نازک‌تر */
+        h1, .h1 {
+            font-weight: 200 !important;
+            letter-spacing: -0.04em !important;
+        }
+        
+        /* لینک‌ها و ناوبری */
+        a, .nav-link, .dropdown-item, .btn-link, .navbar-brand {
+            font-weight: 300 !important;
+            letter-spacing: -0.01em !important;
+        }
+        
+        /* دکمه‌ها */
+        .btn, button, .btn-primary, .btn-dark, .btn-outline-dark {
+            font-weight: 400 !important;
+            letter-spacing: 0.02em !important;
+            font-size: 0.85rem !important;
+        }
+        
+        /* قیمت محصولات */
+        .product-price, .price, .product-item span, .card-text {
+            font-weight: 500 !important;
+            color: #1a1a1a !important;
+        }
+        
+        /* توضیحات */
+        p, .description, .product-description, .card-text {
+            font-weight: 300 !important;
+            line-height: 1.7 !important;
+            color: #4a4a4a !important;
+        }
+        
+        /* فوتر */
+        footer, .footer-menu p, .footer-menu a, .footer-menu li {
+            font-weight: 300 !important;
+        }
+        
+        /* محصولات - نام محصول */
+        .product-item .product-content h5,
+        .product-item .product-content a,
+        h5.product-title {
+            font-weight: 400 !important;
+        }
+        
+        /* محصولات - قیمت */
+        .product-item .product-content span {
+            font-weight: 500 !important;
         }
         
         /* استایل برای پیام‌های بالای صفحه */
@@ -60,8 +138,29 @@
                 top: 60px;
                 width: 95%;
             }
+            body {
+                font-weight: 400 !important;
+            }
+        }
+        
+        /* تنظیم اندازه تصاویر محصولات */
+        .product-item .image-holder img,
+        .product-item .product-image,
+        .product-item img {
+            width: 100% !important;
+            height: 280px !important;
+            object-fit: cover !important;
+            object-position: center !important;
+        }
+        
+        @media (max-width: 768px) {
+            .product-item .image-holder img,
+            .product-item .product-image {
+                height: 200px !important;
+            }
         }
     </style>
+
 </head>
 
 <body class="homepage">
