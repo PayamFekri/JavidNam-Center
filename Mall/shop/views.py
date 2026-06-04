@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Product
+from .models import Category, Product ,Newsletter
 from .cart import Cart
+from django.contrib import messages
+
 
 def product_list(request, category_slug=None):
     category = None
@@ -66,3 +68,23 @@ def index(request):
         'related_products': related_products,
         'cart': cart,
     })
+    
+def newsletter_subscribe(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            try:
+                obj, created = Newsletter.objects.get_or_create(email=email)
+                if created:
+                    messages.success(request, 'Your email has been successfully subscribed to the newsletter!')
+                else:
+                    messages.info(request, 'This email is already subscribed to the newsletter.')
+            except Exception as e:
+                messages.error(request, 'An error occurred. Please try again.')
+        else:
+            messages.error(request, 'Please enter a valid email address.')
+        
+        # Return to the previous page
+        return redirect(request.META.get('HTTP_REFERER', 'shop:index'))
+    
+    return redirect('shop:index')

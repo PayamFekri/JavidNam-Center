@@ -4,13 +4,12 @@ from django.urls import reverse
 class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
-
+    image = models.ImageField(upload_to='categories/', blank=True, null=True)
     class Meta:
         verbose_name_plural = "Categories"
 
     def __str__(self):
         return self.name
-    
 
     def get_absolute_url(self):
         return reverse('shop:product_list_by_category', args=[self.slug])
@@ -32,3 +31,15 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('shop:product_detail', args=[self.id, self.slug])
+    
+class Newsletter(models.Model):
+    email = models.EmailField(unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email
+
+    class Meta:
+        verbose_name = "member-of-Newsletter"
+        verbose_name_plural = "members-of-Newsletter"

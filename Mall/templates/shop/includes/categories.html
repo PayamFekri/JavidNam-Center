@@ -3,7 +3,7 @@
     <div class="container">
         <div class="open-up" data-aos="zoom-out">
             <div class="row">
-                {% for category in categories|slice:":3" %}
+                {% for category in categories %}
                 <div class="col-md-4">
                     <div class="cat-item image-zoom-effect">
                         <div class="image-holder">
@@ -11,6 +11,7 @@
                                 {% if category.image %}
                                 <img src="{{ category.image.url }}" alt="{{ category.name }}" class="product-image img-fluid">
                                 {% else %}
+                                <!-- اگر دسته‌بندی تصویر نداشت، از تصویر پیش‌فرض استفاده کن -->
                                 <img src="{% static 'images/cat-item'|add:forloop.counter|add:'.jpg' %}" alt="{{ category.name }}" class="product-image img-fluid">
                                 {% endif %}
                             </a>
@@ -23,10 +24,13 @@
                     </div>
                 </div>
                 {% empty %}
+                <!-- اگر هیچ دسته‌بندی وجود نداشت، سه تا نمونه پیش‌فرض نشون بده -->
                 <div class="col-md-4">
                     <div class="cat-item image-zoom-effect">
                         <div class="image-holder">
-                            <img src="{% static 'images/cat-item1.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                            <a href="#">
+                                <img src="{% static 'images/cat-item1.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                            </a>
                         </div>
                         <div class="category-content">
                             <div class="product-button">
@@ -38,7 +42,9 @@
                 <div class="col-md-4">
                     <div class="cat-item image-zoom-effect">
                         <div class="image-holder">
-                            <img src="{% static 'images/cat-item2.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                            <a href="#">
+                                <img src="{% static 'images/cat-item2.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                            </a>
                         </div>
                         <div class="category-content">
                             <div class="product-button">
@@ -50,7 +56,9 @@
                 <div class="col-md-4">
                     <div class="cat-item image-zoom-effect">
                         <div class="image-holder">
-                            <img src="{% static 'images/cat-item3.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                            <a href="#">
+                                <img src="{% static 'images/cat-item3.jpg' %}" alt="دسته‌بندی" class="product-image img-fluid">
+                            </a>
                         </div>
                         <div class="category-content">
                             <div class="product-button">

@@ -5,11 +5,23 @@
             <div class="col-md-8 py-5 my-5">
                 <div class="subscribe-header text-center pb-3">
                     <h3 class="section-title text-uppercase">عضویت در خبرنامه</h3>
+                    <p class="text-muted">با عضویت در خبرنامه از تخفیف‌ها و محصولات جدید با خبر شوید</p>
                 </div>
-                <form method="post" action="#" class="d-flex flex-wrap gap-2">
+                
+                <!-- نمایش پیام‌ها -->
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                
+                <form method="post" action="{% url 'shop:newsletter_subscribe' %}" class="d-flex flex-wrap gap-2">
                     {% csrf_token %}
                     <input type="email" name="email" placeholder="آدرس ایمیل خود را وارد کنید" class="form-control form-control-lg" required>
-                    <button type="submit" class="btn btn-dark btn-lg text-uppercase w-100">عضویت</button>
+                    <button type="submit" class="btn btn-dark btn-lg text-uppercase">عضویت</button>
                 </form>
             </div>
         </div>

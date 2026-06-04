@@ -42,6 +42,25 @@
                 height: 200px !important;
             }
         }
+        
+        /* استایل برای پیام‌های بالای صفحه */
+        .messages-container {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            right: 0;
+            z-index: 9999;
+            width: 90%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            .messages-container {
+                top: 60px;
+                width: 95%;
+            }
+        }
     </style>
 </head>
 
@@ -73,6 +92,18 @@
     {% include 'shop/includes/offcanvas-cart.html' %}
     {% include 'shop/includes/navbar.html' %}
 
+    <!-- پیغام‌ها (بالای صفحه، مجزا از بقیه محتوا) -->
+    <div class="messages-container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
     <!-- محتوای اصلی -->
     <main>
         {% block content %}{% endblock %}
@@ -87,6 +118,17 @@
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/script.min.js' %}"></script>
     <script src="{% static 'js/SmoothScroll.js' %}"></script>
+    
+    <script>
+        // خودکار محو شدن پیغام‌ها بعد از 5 ثانیه
+        setTimeout(function() {
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                var bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
+    </script>
     
     {% block extra_js %}{% endblock %}
 </body>
