@@ -27,39 +27,164 @@
 ## 🏗️ ساختار پروژه
 
 
-``` html
-JavidNam-Center/
-├── core/                  # تنظیمات اصلی پروژه
-│   ├── settings.py        # تنظیمات پروژه
-│   ├── urls.py            # URLهای اصلی
-│   └── wsgi.py
-├── shop/                  # اپلیکیشن اصلی فروشگاه
-│   ├── models.py          # مدل‌های Category، Product، Newsletter
-│   ├── views.py           # ویوهای محصولات، سبد خرید، خبرنامه
-│   ├── cart.py            # منطق سبد خرید
-│   └── urls.py            # URLهای فروشگاه
-├── accounts/              # اپلیکیشن احراز هویت
-│   ├── views.py           # ثبت‌نام، ورود، خروج، پروفایل
-│   └── urls.py
-├── static/                # فایل‌های استاتیک (CSS, JS, Images)
-│   ├── css/               # استایل‌های قالب Kaira
-│   ├── js/                # اسکریپت‌های قالب
-│   └── images/            # تصاویر قالب
-├── templates/             # قالب‌های HTML
-│   ├── shop/              # قالب‌های فروشگاه
-│   │   ├── includes/      # بخش‌های reusable
-│   │   ├── base.html      # قالب اصلی
-│   │   ├── index.html     # صفحه اصلی
-│   │   ├── product_list.html
-│   │   ├── product_detail.html
-│   │   └── cart_detail.html
-│   └── accounts/          # قالب‌های احراز هویت
+``` html 
+htmlJavidNam-Center/
+│
+├── manage.py
+├── db.sqlite3
+├── requirements.txt
+├── README.md
+│
+├── core/                          # پوشه تنظیمات اصلی پروژه
+│   ├── __init__.py
+│   ├── settings.py                # تنظیمات اصلی Django
+│   ├── urls.py                    # URLهای اصلی پروژه
+│   ├── asgi.py
+│   ├── wsgi.py
+│   └── __pycache__/
+│
+├── shop/                          # اپلیکیشن اصلی فروشگاه
+│   ├── __init__.py
+│   ├── admin.py                   # تنظیمات پنل ادمین برای مدل‌ها
+│   ├── apps.py
+│   ├── models.py                  # مدل‌های Category, Product, Newsletter
+│   ├── views.py                   # ویوهای محصولات، سبد خرید، خبرنامه
+│   ├── urls.py                    # URLهای فروشگاه
+│   ├── cart.py                    # منطق سبد خرید (session-based)
+│   ├── tests.py
+│   │
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   ├── 0001_initial.py
+│   │   ├── 0002_alter_category_id_alter_product_id.py
+│   │   └── __pycache__/
+│   │
+│   └── __pycache__/
+│
+├── accounts/                      # اپلیکیشن احراز هویت کاربران
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── views.py                   # ویوهای ثبت‌نام، ورود، خروج، پروفایل
+│   ├── urls.py                    # URLهای احراز هویت
+│   ├── tests.py
+│   │
+│   ├── migrations/
+│   │   ├── __init__.py
+│   │   └── __pycache__/
+│   │
+│   └── __pycache__/
+│
+├── static/                        # فایل‌های استاتیک (CSS, JS, Images)
+│   ├── favicon.ico
+│   ├── favicon.png
+│   │
+│   ├── css/
+│   │   ├── style.css              # استایل اصلی قالب Kaira
+│   │   ├── vendor.css
+│   │   ├── normalize.css
+│   │   ├── swiper-bundle.min.css
+│   │   └── ajax-loader.gif
+│   │
+│   ├── js/
+│   │   ├── jquery.min.js
+│   │   ├── plugins.js
+│   │   ├── script.min.js
+│   │   ├── SmoothScroll.js
+│   │   └── modernizr.js
+│   │
+│   └── images/                    # تصاویر قالب (بیش از 70 فایل)
+│       ├── banner-image-1.jpg
+│       ├── banner-image-2.jpg
+│       ├── banner-image-3.jpg
+│       ├── banner-image-4.jpg
+│       ├── banner-image-5.jpg
+│       ├── banner-image-6.jpg
+│       ├── cat-item1.jpg
+│       ├── cat-item2.jpg
+│       ├── cat-item3.jpg
+│       ├── product-item-1.jpg
+│       ├── product-item-2.jpg
+│       ├── product-item-3.jpg
+│       ├── product-item-4.jpg
+│       ├── product-item-5.jpg
+│       ├── product-item-6.jpg
+│       ├── product-item-7.jpg
+│       ├── product-item-8.jpg
+│       ├── product-item-9.jpg
+│       ├── product-item-10.jpg
+│       ├── logo1.png
+│       ├── logo2.png
+│       ├── logo3.png
+│       ├── logo4.png
+│       ├── logo5.png
+│       ├── main-logo.png
+│       ├── insta-item1.jpg
+│       ├── insta-item2.jpg
+│       ├── insta-item3.jpg
+│       ├── insta-item4.jpg
+│       ├── insta-item5.jpg
+│       ├── insta-item6.jpg
+│       ├── post-image1.jpg
+│       ├── post-image2.jpg
+│       ├── post-image3.jpg
+│       ├── video-image.jpg
+│       ├── text-pattern.png
+│       ├── pattern-bg.png
+│       ├── single-image-2.jpg
+│       ├── arct-icon.png
+│       ├── dhl-logo.png
+│       ├── visa-card.png
+│       ├── master-card.png
+│       ├── paypal-card.png
+│       └── ... (سایر تصاویر)
+│
+├── media/                         # فایل‌های آپلودی (تصاویر محصولات و دسته‌بندی‌ها)
+│   └── products/
+│       └── 2026/
+│           └── 05/
+│               └── 30/
+│                   └── *.webp, *.jpg, *.avif
+│
+├── templates/                     # قالب‌های HTML پروژه
+│   │
+│   ├── shop/
+│   │   ├── base.html              # قالب اصلی (شامل هدر، فوتر، اسکریپت‌ها)
+│   │   ├── index.html             # صفحه اصلی (شامل همه بخش‌ها)
+│   │   ├── product_list.html      # صفحه لیست محصولات
+│   │   ├── product_detail.html    # صفحه جزئیات محصول
+│   │   ├── cart_detail.html       # صفحه سبد خرید
+│   │   │
+│   │   └── includes/              # بخش‌های reusable قالب
+│   │       ├── preloader.html
+│   │       ├── search-popup.html
+│   │       ├── offcanvas-cart.html
+│   │       ├── navbar.html
+│   │       ├── billboard.html
+│   │       ├── features.html
+│   │       ├── categories.html
+│   │       ├── new-arrivals.html
+│   │       ├── collection.html
+│   │       ├── best-sellers.html
+│   │       ├── video.html
+│   │       ├── testimonials.html
+│   │       ├── related-products.html
+│   │       ├── blog.html
+│   │       ├── logo-bar.html
+│   │       ├── newsletter.html
+│   │       ├── instagram.html
+│   │       └── footer.html
+│   │
+│   └── accounts/                  # قالب‌های صفحات احراز هویت
 │       ├── login.html
 │       ├── register.html
 │       └── profile.html
-├── media/                 # فایل‌های آپلودی (تصاویر محصولات)
-├── db.sqlite3             # دیتابیس
-└── manage.py
+│
+└── venv/                          # محیط مجازی Python (اختیاری - در git ignore)
+    ├── Scripts/ (Windows) یا bin/ (Linux/Mac)
+    ├── Lib/ (Windows) یا lib/ (Linux/Mac)
+    └── ...
 ```
 ---
 
