@@ -20,14 +20,33 @@ class Cart:
             self.cart[product_id]['quantity'] += quantity
         self.save()
 
-    def save(self):
-        self.session.modified = True
+    def update_quantity(self, product_id, quantity):
+        """به‌روزرسانی تعداد یک محصول"""
+        product_id = str(product_id)
+        if product_id in self.cart:
+            if quantity > 0:
+                self.cart[product_id]['quantity'] = quantity
+            else:
+                self.remove_by_id(product_id)
+            self.save()
+            return True
+        return False
 
     def remove(self, product):
         product_id = str(product.id)
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
+
+    def remove_by_id(self, product_id):
+        """حذف محصول با آی‌دی"""
+        product_id = str(product_id)
+        if product_id in self.cart:
+            del self.cart[product_id]
+            self.save()
+
+    def save(self):
+        self.session.modified = True
 
     def __iter__(self):
         product_ids = self.cart.keys()

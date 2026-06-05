@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Product ,Newsletter
 from .cart import Cart
 from django.contrib import messages
+from django.http import JsonResponse
 
 
 def product_list(request, category_slug=None):
@@ -88,3 +89,34 @@ def newsletter_subscribe(request):
         return redirect(request.META.get('HTTP_REFERER', 'shop:index'))
     
     return redirect('shop:index')
+
+def cart_update(request):
+    """به‌روزرسانی تعداد محصول در سبد خرید (AJAX)"""
+    if request.method == 'POST':
+        cart = Cart(request)
+        product_id = request.POST.get('product_id')
+        quantity = int(request.POST.get('quantity', 1))
+        
+        if cart.update_quantity(product_id, quantity):
+            return JsonResponse({
+                'success': True,
+                'total_price': cart.get_total_price(),
+                'cart_length': len(cart),
+                'item_total': cart.cart.get(str(product_id), {}).get('total_price', 0)
+            })
+    
+    return JsonResponse({'success': False})
+
+def cart_remove_ajax(request):
+    """حذف محصول از سبد خرید با AJAX"""
+    if request.method == 'POST':
+        cart = Cart(request)
+        product_id = request.POST.get('product_id')
+        cart.remove_by_id(product_id)
+        return JsonResponse({
+            'success': True,
+            'total_price': cart.get_total_price(),
+            'cart_length': len(cart)
+        })
+    
+    return JsonResponse({'success': False})

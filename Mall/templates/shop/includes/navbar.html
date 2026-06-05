@@ -42,10 +42,8 @@
                     <!-- سبد خرید -->
                     <li>
                         <a href="{% url 'shop:cart_detail' %}" class="text-dark position-relative">
-                            <svg width="24" height="24" viewBox="0 0 24 24">
-                                <use xlink:href="#cart"></use>
-                            </svg>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
+                            <svg width="24" height="24"><use xlink:href="#cart"></use></svg>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark cart-count">
                                 {{ cart|length }}
                             </span>
                         </a>
