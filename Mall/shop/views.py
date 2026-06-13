@@ -3,7 +3,8 @@ from .models import Category, Product ,Newsletter
 from .cart import Cart
 from django.contrib import messages
 from django.http import JsonResponse
-
+from .forms import OrderCreateForm
+from .models import Order, OrderItem
 
 def product_list(request, category_slug=None):
     category = None
@@ -120,3 +121,46 @@ def cart_remove_ajax(request):
         })
     
     return JsonResponse({'success': False})
+
+def order_create(request):
+    cart = Cart(request)
+    
+    if request.method == 'POST':
+        form = OrderCreateForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            if request.user.is_authenticated:
+                order.user = request.user
+                order.email = request.user.email
+            order.save()
+            
+            # Create order items from cart
+            for item in cart:
+                OrderItem.objects.create(
+                    order=order,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['quantity']
+                )
+            
+            # Clear the cart
+            cart.clear()
+            
+            # Redirect to order created page
+            return render(request, 'shop/order_created.html', {'order': order})
+    else:
+        # Pre-fill form for authenticated users
+        initial_data = {}
+        if request.user.is_authenticated:
+            initial_data = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+            }
+        form = OrderCreateForm(initial=initial_data)
+    
+    return render(request, 'shop/order_create.html', {
+        'form': form, 
+        'cart': cart,
+        'categories': Category.objects.all(),
+    })

@@ -1,0 +1,109 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}Checkout - JavidNam Center{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-uppercase mb-4">Checkout</h2>
+    
+    <div class="row">
+        <!-- Order Summary -->
+        <div class="col-lg-5 order-lg-2 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Your Order</h5>
+                </div>
+                <div class="card-body">
+                    {% for item in cart %}
+                    <div class="d-flex justify-content-between mb-3 pb-3 border-bottom">
+                        <div>
+                            <h6 class="mb-0">{{ item.product.name }}</h6>
+                            <small class="text-muted">Quantity: {{ item.quantity }}</small>
+                        </div>
+                        <span>{{ item.total_price }} تومان</span>
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="d-flex justify-content-between mt-3 pt-3 border-top">
+                        <strong>Total:</strong>
+                        <strong class="text-primary fs-5">{{ cart.get_total_price }} تومان</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Checkout Form -->
+        <div class="col-lg-7 order-lg-1">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Billing Information</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">First Name *</label>
+                                {{ form.first_name }}
+                                {{ form.first_name.errors }}
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Last Name *</label>
+                                {{ form.last_name }}
+                                {{ form.last_name.errors }}
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Email Address *</label>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number *</label>
+                            {{ form.phone }}
+                            {{ form.phone.errors }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Address *</label>
+                            {{ form.address }}
+                            {{ form.address.errors }}
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">City *</label>
+                                {{ form.city }}
+                                {{ form.city.errors }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Province/State *</label>
+                                {{ form.province }}
+                                {{ form.province.errors }}
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Postal Code *</label>
+                                {{ form.postal_code }}
+                                {{ form.postal_code.errors }}
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{% url 'shop:cart_detail' %}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-right"></i> Back to Cart
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-check-circle"></i> Place Order
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -305,6 +305,15 @@ $(document).ready(function() {
             });
         }
     });
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'shop:product_list' %}" class="btn btn-outline-dark">
+            <i class="fas fa-arrow-right"></i> Continue Shopping
+        </a>
+        <a href="{% url 'shop:order_create' %}" class="btn btn-success">
+            <i class="fas fa-credit-card"></i> Proceed to Checkout
+        </a>
+    </div>
 });
 </script>
 {% endblock %}

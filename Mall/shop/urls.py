@@ -13,5 +13,7 @@ urlpatterns = [
     path('<slug:category_slug>/', views.product_list, name='product_list_by_category'),
     path('product/<int:id>/<slug:slug>/', views.product_detail, name='product_detail'),
     path('cart/update/', views.cart_update, name='cart_update'),
-    path('cart/remove-ajax/', views.cart_remove_ajax, name='cart_remove_ajax'),    
+    path('cart/remove-ajax/', views.cart_remove_ajax, name='cart_remove_ajax'),
+    path('checkout/', views.order_create, name='order_create'),
+
 ]
